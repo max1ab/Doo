@@ -28,7 +28,7 @@ struct TodoItem {
 
 var exampleTodos = [
     TodoItem("吃饭"),
-    TodoItem("睡觉",true),
+    TodoItem("睡觉"),
     TodoItem("打豆豆"),
     TodoItem("完成代码和视频剪辑"),
     TodoItem("看书",true),
@@ -38,7 +38,7 @@ var exampleTodos = [
 struct TodoView: View {
     //@State private var todoItems = [TodoItem()]
     @State private var todoItems = exampleTodos
-    @State private var focusedID: UUID?  // 跟踪当前焦点项
+//    @State private var focusedID: UUID?  // 跟踪当前焦点项
     @FocusState private var focusedField: UUID?  // SwiftUI 焦点管理
     
     
@@ -56,11 +56,11 @@ struct TodoView: View {
                         }
                     )
                     .focused($focusedField, equals: item.id)  // 绑定焦点状态
-                    .onChange(of: item.content) {
-                        if item.content.isEmpty && index != todoItems.count - 1 {
-                            deleteItem(at: index)
-                        }
-                    }
+//                    .onChange(of: item.content) {
+//                        if item.content.isEmpty && index != todoItems.count - 1 {
+//                            deleteItem(at: index)
+//                        }
+//                    }
                 }
                 .onMove(perform: move)
             }
@@ -68,19 +68,19 @@ struct TodoView: View {
         .onAppear {
             focusedField = todoItems.first?.id
         }
-        .onChange(of: focusedField) { newValue in
-            focusedID = newValue
-        }
+//        .onChange(of: focusedID) { newValue in
+//            focusedID = newValue
+//        }
         // 键盘事件监听
-        .onKeyPress(.upArrow) { _ in
+        .onKeyPress(.upArrow) { 
             moveFocusUp()
             return .handled
         }
-        .onKeyPress(.downArrow) { _ in
+        .onKeyPress(.downArrow) { 
             moveFocusDown()
             return .handled
         }
-        .onKeyPress(.tab) { _ in
+        .onKeyPress(.tab) { 
             moveFocusDown()
             return .handled
         }
@@ -93,29 +93,26 @@ struct TodoView: View {
     
     // 自动将完成项移到最后
     func moveToEndIfDone(index: Int) {
-        guard todoItems[index].over else { return }
+        guard index < todoItems.count && todoItems[index].over else { return }
         
-        //        var o: Int
-        //        for o in
-        var o = 0
-        for i in todoItems.reversed() {
-            if i.over {
-                o += 1
+        // 计算已完成项目的数量（从末尾开始）
+        var completedCount = 0
+        for item in todoItems.reversed() {
+            if item.over {
+                completedCount += 1
             } else {
                 break
             }
         }
         
-        //        withAnimation {
-        for i in index..<todoItems.count-1-o {
+        // 安全地移动项目
+        let targetIndex = todoItems.count - completedCount
+        if index < targetIndex - 1 {
             withAnimation {
-                todoItems.swapAt(i, i+1)
+                let item = todoItems.remove(at: index)
+                todoItems.insert(item, at: targetIndex - 1)
             }
         }
-        //            todoItems.swapAt(0, 1)
-        //            let doneItem = todoItems.remove(at: index)
-        //            todoItems.append(doneItem)
-        //        }
     }
     
     // 添加新todo
@@ -133,7 +130,7 @@ struct TodoView: View {
     
     // 焦点上移
     private func moveFocusUp() {
-        guard let currentID = focusedID,
+        guard let currentID = focusedField,
               let currentIndex = todoItems.firstIndex(where: { $0.id == currentID }),
               currentIndex > 0 else { return }
         
@@ -142,8 +139,8 @@ struct TodoView: View {
     
     // 焦点下移
     private func moveFocusDown() {
-        guard let currentID = focusedID else {
-            focusedField = todoItems.first?.id
+        guard let currentID = focusedField else {
+//            focusedField = todoItems.first?.id
             return
         }
         
@@ -171,13 +168,11 @@ struct TodoView: View {
 
 struct TodoItemView: View {
     @Binding var item: TodoItem
-    
-    @FocusedBinding var focusedID: UUID?
-//    let isFocused: Bool
-//    @FocusState private var isTextFieldFocused: Bool
+    @FocusState private var isTextFieldFocused: Bool
     
     var onComplete: () -> Void
-    var onEnter: ()-> Void
+    var onEnter: () -> Void
+    
     var body: some View {
         HStack {
             if item.over {
@@ -196,8 +191,8 @@ struct TodoItemView: View {
                     .font(.system(size: 16))
                     .foregroundStyle(.primary)
                     .onTapGesture {
-                        onComplete()
                         item.over = !item.over
+                        onComplete()
                     }
                 TextField("wtf", text: $item.content)
                     .autocorrectionDisabled(true)
@@ -206,13 +201,6 @@ struct TodoItemView: View {
                     .onSubmit(onEnter)
                     .padding(2)
                     .focused($isTextFieldFocused)
-                    .onAppear {
-                        if isFocused {
-                            DispatchQueue.main.async {
-                                self.isTextFieldFocused = true
-                            }
-                        }
-                    }
             }
         }
     }
