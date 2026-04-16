@@ -14,12 +14,12 @@ struct learnApp: App {
             ContentView()
                 .frame(
                     minWidth: 250, idealWidth: 300, maxWidth: 400,
-                    minHeight: 350, idealHeight: 500, maxHeight: 600
+                    minHeight: 233, idealHeight: 267, maxHeight: 600
                 )
         }
         .windowResizability(.contentSize)
-        .defaultSize(width: 300, height: 400)
-        .windowStyle(.hiddenTitleBar)
+        .defaultSize(width: 300, height: 267)
+        .windowToolbarStyle(.unified(showsTitle: false))
         
         
 //        Settings {

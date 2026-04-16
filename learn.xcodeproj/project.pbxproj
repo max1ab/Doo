@@ -6,27 +6,23 @@
 	objectVersion = 77;
 	objects = {
 
-/* Begin PBXContainerItemProxy section */
-		B355C5CD2E27B13500FA2030 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B355C5B62E27B13400FA2030 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B355C5BD2E27B13400FA2030;
-			remoteInfo = learn;
+/* Begin PBXCopyFilesBuildPhase section */
+		B3EB0FE22E38BA2600BDC334 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B355C5D72E27B13500FA2030 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B355C5B62E27B13400FA2030 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = B355C5BD2E27B13400FA2030;
-			remoteInfo = learn;
-		};
-/* End PBXContainerItemProxy section */
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		B355C5BE2E27B13400FA2030 /* learn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = learn.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		B355C5CC2E27B13500FA2030 /* learnTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = learnTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		B355C5D62E27B13500FA2030 /* learnUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = learnUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B3EB0FD02E38BA2500BDC334 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		B3EB0FD22E38BA2600BDC334 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -35,34 +31,10 @@
 			path = learn;
 			sourceTree = "<group>";
 		};
-		B355C5CF2E27B13500FA2030 /* learnTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = learnTests;
-			sourceTree = "<group>";
-		};
-		B355C5D92E27B13500FA2030 /* learnUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = learnUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		B355C5BB2E27B13400FA2030 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B355C5C92E27B13500FA2030 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B355C5D32E27B13500FA2030 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -76,8 +48,7 @@
 			isa = PBXGroup;
 			children = (
 				B355C5C02E27B13400FA2030 /* learn */,
-				B355C5CF2E27B13500FA2030 /* learnTests */,
-				B355C5D92E27B13500FA2030 /* learnUITests */,
+				B3EB0FCF2E38BA2500BDC334 /* Frameworks */,
 				B355C5BF2E27B13400FA2030 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -86,10 +57,17 @@
 			isa = PBXGroup;
 			children = (
 				B355C5BE2E27B13400FA2030 /* learn.app */,
-				B355C5CC2E27B13500FA2030 /* learnTests.xctest */,
-				B355C5D62E27B13500FA2030 /* learnUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B3EB0FCF2E38BA2500BDC334 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B3EB0FD02E38BA2500BDC334 /* WidgetKit.framework */,
+				B3EB0FD22E38BA2600BDC334 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -102,6 +80,7 @@
 				B355C5BA2E27B13400FA2030 /* Sources */,
 				B355C5BB2E27B13400FA2030 /* Frameworks */,
 				B355C5BC2E27B13400FA2030 /* Resources */,
+				B3EB0FE22E38BA2600BDC334 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
@@ -117,52 +96,6 @@
 			productReference = B355C5BE2E27B13400FA2030 /* learn.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B355C5CB2E27B13500FA2030 /* learnTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B355C5E32E27B13500FA2030 /* Build configuration list for PBXNativeTarget "learnTests" */;
-			buildPhases = (
-				B355C5C82E27B13500FA2030 /* Sources */,
-				B355C5C92E27B13500FA2030 /* Frameworks */,
-				B355C5CA2E27B13500FA2030 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B355C5CE2E27B13500FA2030 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				B355C5CF2E27B13500FA2030 /* learnTests */,
-			);
-			name = learnTests;
-			packageProductDependencies = (
-			);
-			productName = learnTests;
-			productReference = B355C5CC2E27B13500FA2030 /* learnTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		B355C5D52E27B13500FA2030 /* learnUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = B355C5E62E27B13500FA2030 /* Build configuration list for PBXNativeTarget "learnUITests" */;
-			buildPhases = (
-				B355C5D22E27B13500FA2030 /* Sources */,
-				B355C5D32E27B13500FA2030 /* Frameworks */,
-				B355C5D42E27B13500FA2030 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				B355C5D82E27B13500FA2030 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				B355C5D92E27B13500FA2030 /* learnUITests */,
-			);
-			name = learnUITests;
-			packageProductDependencies = (
-			);
-			productName = learnUITests;
-			productReference = B355C5D62E27B13500FA2030 /* learnUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -175,14 +108,6 @@
 				TargetAttributes = {
 					B355C5BD2E27B13400FA2030 = {
 						CreatedOnToolsVersion = 16.4;
-					};
-					B355C5CB2E27B13500FA2030 = {
-						CreatedOnToolsVersion = 16.4;
-						TestTargetID = B355C5BD2E27B13400FA2030;
-					};
-					B355C5D52E27B13500FA2030 = {
-						CreatedOnToolsVersion = 16.4;
-						TestTargetID = B355C5BD2E27B13400FA2030;
 					};
 				};
 			};
@@ -201,28 +126,12 @@
 			projectRoot = "";
 			targets = (
 				B355C5BD2E27B13400FA2030 /* learn */,
-				B355C5CB2E27B13500FA2030 /* learnTests */,
-				B355C5D52E27B13500FA2030 /* learnUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		B355C5BC2E27B13400FA2030 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B355C5CA2E27B13500FA2030 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B355C5D42E27B13500FA2030 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -239,34 +148,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		B355C5C82E27B13500FA2030 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		B355C5D22E27B13500FA2030 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		B355C5CE2E27B13500FA2030 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B355C5BD2E27B13400FA2030 /* learn */;
-			targetProxy = B355C5CD2E27B13500FA2030 /* PBXContainerItemProxy */;
-		};
-		B355C5D82E27B13500FA2030 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = B355C5BD2E27B13400FA2030 /* learn */;
-			targetProxy = B355C5D72E27B13500FA2030 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		B355C5DE2E27B13500FA2030 /* Debug */ = {
@@ -437,70 +319,6 @@
 			};
 			name = Release;
 		};
-		B355C5E42E27B13500FA2030 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mux.learnTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/learn.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/learn";
-			};
-			name = Debug;
-		};
-		B355C5E52E27B13500FA2030 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.5;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mux.learnTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/learn.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/learn";
-			};
-			name = Release;
-		};
-		B355C5E72E27B13500FA2030 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mux.learnUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = learn;
-			};
-			name = Debug;
-		};
-		B355C5E82E27B13500FA2030 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mux.learnUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TEST_TARGET_NAME = learn;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -518,24 +336,6 @@
 			buildConfigurations = (
 				B355C5E12E27B13500FA2030 /* Debug */,
 				B355C5E22E27B13500FA2030 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B355C5E32E27B13500FA2030 /* Build configuration list for PBXNativeTarget "learnTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B355C5E42E27B13500FA2030 /* Debug */,
-				B355C5E52E27B13500FA2030 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		B355C5E62E27B13500FA2030 /* Build configuration list for PBXNativeTarget "learnUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				B355C5E72E27B13500FA2030 /* Debug */,
-				B355C5E82E27B13500FA2030 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
