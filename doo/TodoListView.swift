@@ -70,6 +70,21 @@ struct TodoView: View {
         todoItems.move(fromOffsets: source, toOffset: destination)
     }
 
+    private func deleteTodoItem(index: Int) {
+        guard todoItems.indices.contains(index) else { return }
+
+        todoItems.remove(at: index)
+        if todoItems.isEmpty {
+            let newItem = TodoItem()
+            todoItems = [newItem]
+            focusedField = newItem.id
+            return
+        }
+
+        let nextIndex = min(index, todoItems.count - 1)
+        focusedField = todoItems[nextIndex].id
+    }
+
     private func loadTodayItemsIfNeeded() {
         guard !hasLoadedToday else { return }
 
@@ -81,6 +96,11 @@ struct TodoView: View {
 
     private func moveToEndIfDone(index: Int) {
         guard index < todoItems.count && todoItems[index].over else { return }
+
+        let completedItemID = todoItems[index].id
+        let shouldDeleteAfterDelay = todoItems[index].content
+            .trimmingCharacters(in: .whitespacesAndNewlines)
+            .isEmpty
 
         var completedCount = 0
         for item in todoItems.reversed() {
@@ -98,6 +118,10 @@ struct TodoView: View {
                 todoItems.insert(item, at: targetIndex - 1)
             }
         }
+
+        if shouldDeleteAfterDelay {
+            scheduleEmptyCompletedDeletion(for: completedItemID)
+        }
     }
 
     private func addTodoItem(index: Int) {
@@ -108,6 +132,21 @@ struct TodoView: View {
 
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
             focusedField = newItem.id
+        }
+    }
+
+    private func scheduleEmptyCompletedDeletion(for id: UUID) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            guard let index = todoItems.firstIndex(where: { $0.id == id }) else { return }
+
+            let item = todoItems[index]
+            guard item.over,
+                  item.content.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            else {
+                return
+            }
+
+            deleteTodoItem(index: index)
         }
     }
 
