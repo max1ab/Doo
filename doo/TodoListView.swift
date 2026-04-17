@@ -3,9 +3,12 @@ import SwiftUI
 
 struct TodoView: View {
     @State private var todoItems = [TodoItem()]
+    @State private var todoStore = TodoMarkdownStore()
     @FocusState private var focusedField: UUID?
     @State private var window: NSWindow?
     @State private var isPinned = false
+    @State private var hasLoadedToday = false
+    @State private var todaySectionExists = false
 
     var body: some View {
         VStack {
@@ -34,7 +37,15 @@ struct TodoView: View {
             )
         )
         .onAppear {
+            loadTodayItemsIfNeeded()
             focusedField = todoItems.first?.id
+        }
+        .onChange(of: todoItems) { _, newItems in
+            guard hasLoadedToday else { return }
+            todaySectionExists = todoStore.syncToday(
+                with: newItems,
+                sectionExists: todaySectionExists
+            )
         }
         .onChange(of: window) { _, newWindow in
             guard let newWindow else { return }
@@ -57,6 +68,15 @@ struct TodoView: View {
 
     private func move(from source: IndexSet, to destination: Int) {
         todoItems.move(fromOffsets: source, toOffset: destination)
+    }
+
+    private func loadTodayItemsIfNeeded() {
+        guard !hasLoadedToday else { return }
+
+        let snapshot = todoStore.loadToday()
+        todaySectionExists = snapshot.sectionExists
+        todoItems = snapshot.items.isEmpty ? [TodoItem()] : snapshot.items
+        hasLoadedToday = true
     }
 
     private func moveToEndIfDone(index: Int) {

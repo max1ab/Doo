@@ -1,6 +1,6 @@
 import Foundation
 
-struct TodoItem: Identifiable {
+struct TodoItem: Identifiable, Equatable {
     let id = UUID()
     var over = false
     var content = ""
