@@ -20,15 +20,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B355C5BE2E27B13400FA2030 /* learn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = learn.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B355C5BE2E27B13400FA2030 /* doo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = doo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3EB0FD02E38BA2500BDC334 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B3EB0FD22E38BA2600BDC334 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		B355C5C02E27B13400FA2030 /* learn */ = {
+		B355C5C02E27B13400FA2030 /* doo */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = learn;
+			path = doo;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -47,7 +47,7 @@
 		B355C5B52E27B13400FA2030 = {
 			isa = PBXGroup;
 			children = (
-				B355C5C02E27B13400FA2030 /* learn */,
+				B355C5C02E27B13400FA2030 /* doo */,
 				B3EB0FCF2E38BA2500BDC334 /* Frameworks */,
 				B355C5BF2E27B13400FA2030 /* Products */,
 			);
@@ -56,7 +56,7 @@
 		B355C5BF2E27B13400FA2030 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B355C5BE2E27B13400FA2030 /* learn.app */,
+				B355C5BE2E27B13400FA2030 /* doo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -73,9 +73,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B355C5BD2E27B13400FA2030 /* learn */ = {
+		B355C5BD2E27B13400FA2030 /* Doo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B355C5E02E27B13500FA2030 /* Build configuration list for PBXNativeTarget "learn" */;
+			buildConfigurationList = B355C5E02E27B13500FA2030 /* Build configuration list for PBXNativeTarget "Doo" */;
 			buildPhases = (
 				B355C5BA2E27B13400FA2030 /* Sources */,
 				B355C5BB2E27B13400FA2030 /* Frameworks */,
@@ -87,13 +87,13 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				B355C5C02E27B13400FA2030 /* learn */,
+				B355C5C02E27B13400FA2030 /* doo */,
 			);
-			name = learn;
+			name = Doo;
 			packageProductDependencies = (
 			);
-			productName = learn;
-			productReference = B355C5BE2E27B13400FA2030 /* learn.app */;
+			productName = doo;
+			productReference = B355C5BE2E27B13400FA2030 /* doo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -111,7 +111,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B355C5B92E27B13400FA2030 /* Build configuration list for PBXProject "learn" */;
+			buildConfigurationList = B355C5B92E27B13400FA2030 /* Build configuration list for PBXProject "doo" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -125,7 +125,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B355C5BD2E27B13400FA2030 /* learn */,
+				B355C5BD2E27B13400FA2030 /* Doo */,
 			);
 		};
 /* End PBXProject section */
@@ -274,10 +274,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = learn/learn.entitlements;
+				CODE_SIGN_ENTITLEMENTS = doo/doo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5BFT3A69YM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -286,8 +287,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mux.learn;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = mux.doo;
+				PRODUCT_NAME = doo;
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -299,10 +300,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = learn/learn.entitlements;
+				CODE_SIGN_ENTITLEMENTS = doo/doo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 5BFT3A69YM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -311,8 +313,8 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = mux.learn;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = mux.doo;
+				PRODUCT_NAME = doo;
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -322,7 +324,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B355C5B92E27B13400FA2030 /* Build configuration list for PBXProject "learn" */ = {
+		B355C5B92E27B13400FA2030 /* Build configuration list for PBXProject "doo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B355C5DE2E27B13500FA2030 /* Debug */,
@@ -331,7 +333,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B355C5E02E27B13500FA2030 /* Build configuration list for PBXNativeTarget "learn" */ = {
+		B355C5E02E27B13500FA2030 /* Build configuration list for PBXNativeTarget "Doo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B355C5E12E27B13500FA2030 /* Debug */,

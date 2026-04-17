@@ -19,7 +19,7 @@
                BlueprintIdentifier = "B3EB0FCD2E38BA2500BDC334"
                BuildableName = "widgetExtension.appex"
                BlueprintName = "widgetExtension"
-               ReferencedContainer = "container:learn.xcodeproj">
+               ReferencedContainer = "container:doo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -31,9 +31,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B355C5BD2E27B13400FA2030"
-               BuildableName = "learn.app"
-               BlueprintName = "learn"
-               ReferencedContainer = "container:learn.xcodeproj">
+               BuildableName = "doo.app"
+               BlueprintName = "Doo"
+               ReferencedContainer = "container:doo.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -62,9 +62,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B355C5BD2E27B13400FA2030"
-            BuildableName = "learn.app"
-            BlueprintName = "learn"
-            ReferencedContainer = "container:learn.xcodeproj">
+            BuildableName = "doo.app"
+            BlueprintName = "Doo"
+            ReferencedContainer = "container:doo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -98,9 +98,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B355C5BD2E27B13400FA2030"
-            BuildableName = "learn.app"
-            BlueprintName = "learn"
-            ReferencedContainer = "container:learn.xcodeproj">
+            BuildableName = "doo.app"
+            BlueprintName = "Doo"
+            ReferencedContainer = "container:doo.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

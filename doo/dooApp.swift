@@ -1,6 +1,6 @@
 //
-//  learnApp.swift
-//  learn
+//  dooApp.swift
+//  doo
 //
 //  Created by r00t on 2025/7/16.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct learnApp: App {
+struct DooApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
