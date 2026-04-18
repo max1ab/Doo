@@ -63,6 +63,10 @@ final class TodoMarkdownStore {
         )
     }
 
+    func todayKey() -> String {
+        currentDateKey()
+    }
+
     @discardableResult
     func syncToday(with items: [TodoItem], sectionExists: Bool) -> Bool {
         let persistedItems = items

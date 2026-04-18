@@ -2,6 +2,7 @@ import AppKit
 import SwiftUI
 
 struct TodoView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @State private var todoItems = [TodoItem()]
     @State private var todoStore = TodoMarkdownStore()
     @FocusState private var focusedField: UUID?
@@ -9,6 +10,7 @@ struct TodoView: View {
     @State private var isPinned = false
     @State private var hasLoadedToday = false
     @State private var todaySectionExists = false
+    @State private var loadedDateKey = ""
 
     var body: some View {
         VStack {
@@ -37,8 +39,7 @@ struct TodoView: View {
             )
         )
         .onAppear {
-            loadTodayItemsIfNeeded()
-            focusedField = todoItems.first?.id
+            loadCurrentDayItemsIfNeeded(forceReload: true)
         }
         .onChange(of: todoItems) { _, newItems in
             guard hasLoadedToday else { return }
@@ -51,6 +52,13 @@ struct TodoView: View {
             guard let newWindow else { return }
             configureWindowChrome(newWindow)
             isPinned = newWindow.level == .floating
+        }
+        .onChange(of: scenePhase) { _, newPhase in
+            guard newPhase == .active else { return }
+            loadCurrentDayItemsIfNeeded()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
+            loadCurrentDayItemsIfNeeded(forceReload: true)
         }
         .onKeyPress(.upArrow) {
             moveFocusUp()
@@ -85,13 +93,16 @@ struct TodoView: View {
         focusedField = todoItems[nextIndex].id
     }
 
-    private func loadTodayItemsIfNeeded() {
-        guard !hasLoadedToday else { return }
+    private func loadCurrentDayItemsIfNeeded(forceReload: Bool = false) {
+        let currentDateKey = todoStore.todayKey()
+        guard forceReload || !hasLoadedToday || loadedDateKey != currentDateKey else { return }
 
         let snapshot = todoStore.loadToday()
         todaySectionExists = snapshot.sectionExists
         todoItems = snapshot.items.isEmpty ? [TodoItem()] : snapshot.items
+        loadedDateKey = currentDateKey
         hasLoadedToday = true
+        focusedField = todoItems.first?.id
     }
 
     private func moveToEndIfDone(index: Int) {
