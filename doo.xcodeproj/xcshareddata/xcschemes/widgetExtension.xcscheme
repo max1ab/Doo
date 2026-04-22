@@ -31,7 +31,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B355C5BD2E27B13400FA2030"
-               BuildableName = "doo.app"
+               BuildableName = "Doo.app"
                BlueprintName = "Doo"
                ReferencedContainer = "container:doo.xcodeproj">
             </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B355C5BD2E27B13400FA2030"
-            BuildableName = "doo.app"
+            BuildableName = "Doo.app"
             BlueprintName = "Doo"
             ReferencedContainer = "container:doo.xcodeproj">
          </BuildableReference>
@@ -98,7 +98,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B355C5BD2E27B13400FA2030"
-            BuildableName = "doo.app"
+            BuildableName = "Doo.app"
             BlueprintName = "Doo"
             ReferencedContainer = "container:doo.xcodeproj">
          </BuildableReference>

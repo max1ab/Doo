@@ -20,7 +20,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B355C5BE2E27B13400FA2030 /* doo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = doo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B355C5BE2E27B13400FA2030 /* Doo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Doo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B3EB0FD02E38BA2500BDC334 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		B3EB0FD22E38BA2600BDC334 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -56,7 +56,7 @@
 		B355C5BF2E27B13400FA2030 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B355C5BE2E27B13400FA2030 /* doo.app */,
+				B355C5BE2E27B13400FA2030 /* Doo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -93,7 +93,7 @@
 			packageProductDependencies = (
 			);
 			productName = doo;
-			productReference = B355C5BE2E27B13400FA2030 /* doo.app */;
+			productReference = B355C5BE2E27B13400FA2030 /* Doo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -277,7 +277,7 @@
 				CODE_SIGN_ENTITLEMENTS = doo/doo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 5BFT3A69YM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -286,9 +286,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = mux.doo;
-				PRODUCT_NAME = doo;
+				PRODUCT_NAME = Doo;
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -303,7 +303,7 @@
 				CODE_SIGN_ENTITLEMENTS = doo/doo.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 5;
 				DEVELOPMENT_TEAM = 5BFT3A69YM;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -312,9 +312,9 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = mux.doo;
-				PRODUCT_NAME = doo;
+				PRODUCT_NAME = Doo;
 				REGISTER_APP_GROUPS = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;

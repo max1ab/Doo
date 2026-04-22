@@ -55,10 +55,10 @@ struct TodoView: View {
         }
         .onChange(of: scenePhase) { _, newPhase in
             guard newPhase == .active else { return }
-            loadCurrentDayItemsIfNeeded()
+            loadCurrentDayItemsIfNeeded(carryIncompleteItems: true)
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
-            loadCurrentDayItemsIfNeeded(forceReload: true)
+            loadCurrentDayItemsIfNeeded(forceReload: true, carryIncompleteItems: true)
         }
         .onKeyPress(.upArrow) {
             moveFocusUp()
@@ -93,13 +93,21 @@ struct TodoView: View {
         focusedField = todoItems[nextIndex].id
     }
 
-    private func loadCurrentDayItemsIfNeeded(forceReload: Bool = false) {
+    private func loadCurrentDayItemsIfNeeded(
+        forceReload: Bool = false,
+        carryIncompleteItems: Bool = false
+    ) {
         let currentDateKey = todoStore.todayKey()
+        let shouldCarryIncompleteItems =
+            carryIncompleteItems && hasLoadedToday && loadedDateKey != currentDateKey
         guard forceReload || !hasLoadedToday || loadedDateKey != currentDateKey else { return }
 
         let snapshot = todoStore.loadToday()
+        let carriedItems = shouldCarryIncompleteItems ? todoItems.filter { !$0.over } : []
+        let loadedItems = snapshot.items.isEmpty && !snapshot.sectionExists ? carriedItems : snapshot.items
+        todoItems = loadedItems.isEmpty ? [TodoItem()] : loadedItems
         todaySectionExists = snapshot.sectionExists
-        todoItems = snapshot.items.isEmpty ? [TodoItem()] : snapshot.items
+            || todoStore.syncToday(with: todoItems, sectionExists: snapshot.sectionExists)
         loadedDateKey = currentDateKey
         hasLoadedToday = true
         focusedField = todoItems.first?.id
