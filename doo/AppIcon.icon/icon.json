@@ -1,0 +1,87 @@
+{
+  "fill-specializations" : [
+    {
+      "value" : {
+        "solid" : "extended-gray:1.00000,1.00000"
+      }
+    },
+    {
+      "appearance" : "dark",
+      "value" : {
+        "solid" : "extended-gray:0.25000,1.00000"
+      }
+    }
+  ],
+  "groups" : [
+    {
+      "layers" : [
+        {
+          "blend-mode" : "normal",
+          "glass" : true,
+          "hidden" : true,
+          "image-name" : "AppIcon-reference-gray.png",
+          "name" : "AppIcon-reference-gray"
+        },
+        {
+          "hidden" : true,
+          "image-name" : "AppIcon-solid-check-pinker-flat-darker.png",
+          "name" : "AppIcon-solid-check-pinker-flat-darker"
+        },
+        {
+          "glass" : true,
+          "hidden" : true,
+          "image-name" : "AppIcon-solid-check-pinker-flat.png",
+          "name" : "AppIcon-solid-check-pinker-flat"
+        },
+        {
+          "glass" : true,
+          "hidden" : true,
+          "image-name" : "AppIcon-solid-check-pinker.png",
+          "name" : "AppIcon-solid-check-pinker"
+        },
+        {
+          "glass" : true,
+          "hidden" : true,
+          "image-name" : "AppIcon-solid-check.png",
+          "name" : "AppIcon-solid-check"
+        },
+        {
+          "glass" : false,
+          "hidden" : true,
+          "image-name" : "AppIcon-transparent-check.png",
+          "name" : "AppIcon-transparent-check"
+        },
+        {
+          "blend-mode" : "normal",
+          "fill" : "automatic",
+          "glass" : false,
+          "hidden" : false,
+          "image-name" : "AppIcon-source.png",
+          "name" : "AppIcon-source",
+          "opacity" : 1,
+          "position" : {
+            "scale" : 0.88,
+            "translation-in-points" : [
+              0,
+              0
+            ]
+          }
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}
