@@ -103,8 +103,17 @@ struct TodoView: View {
         guard forceReload || !hasLoadedToday || loadedDateKey != currentDateKey else { return }
 
         let snapshot = todoStore.loadToday()
-        let carriedItems = shouldCarryIncompleteItems ? todoItems.filter { !$0.over } : []
-        let loadedItems = snapshot.items.isEmpty && !snapshot.sectionExists ? carriedItems : snapshot.items
+        let canCarryIntoToday = snapshot.items.isEmpty && !snapshot.sectionExists
+        let memoryCarriedItems = shouldCarryIncompleteItems ? todoItems.filter { !$0.over } : []
+        let carriedItems: [TodoItem]
+        if !memoryCarriedItems.isEmpty {
+            carriedItems = memoryCarriedItems
+        } else if canCarryIntoToday {
+            carriedItems = todoStore.loadPreviousDayIncompleteItems()
+        } else {
+            carriedItems = []
+        }
+        let loadedItems = canCarryIntoToday ? carriedItems : snapshot.items
         todoItems = loadedItems.isEmpty ? [TodoItem()] : loadedItems
         todaySectionExists = snapshot.sectionExists
             || todoStore.syncToday(with: todoItems, sectionExists: snapshot.sectionExists)

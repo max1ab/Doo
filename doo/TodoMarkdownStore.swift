@@ -67,6 +67,22 @@ final class TodoMarkdownStore {
         currentDateKey()
     }
 
+    func loadPreviousDayIncompleteItems() -> [TodoItem] {
+        guard let previousDay = formatter.calendar.date(byAdding: .day, value: -1, to: todayProvider()) else {
+            return []
+        }
+
+        let dateKey = formatter.string(from: previousDay)
+        let document = readDocument()
+
+        guard let sectionRange = sectionRange(for: dateKey, in: document) else {
+            return []
+        }
+
+        let sectionText = nsString(for: document).substring(with: sectionRange)
+        return parseItems(from: sectionText).filter { !$0.over }
+    }
+
     @discardableResult
     func syncToday(with items: [TodoItem], sectionExists: Bool) -> Bool {
         let persistedItems = items
