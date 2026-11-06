@@ -30,10 +30,15 @@ final class TodoMarkdownStore {
         pattern: #"(?m)^- \[( |x)\] (.+?)\s*$"#
     )
 
+    private let durationExpression = try! NSRegularExpression(
+        pattern: #" \[耗时: (?:([0-9]+)时([0-9]+)分|([0-9]+)分([0-9]+)秒|([0-9]+(?:\.[0-9]+)?) ?秒)\](?: <!-- elapsed: [0-9]+(?:\.[0-9]+)? -->)?$"#
+    )
+
     init(
         fileManager: FileManager = .default,
         calendar: Calendar = .autoupdatingCurrent,
-        todayProvider: @escaping () -> Date = Date.init
+        todayProvider: @escaping () -> Date = Date.init,
+        fileURL: URL? = nil
     ) {
         self.fileManager = fileManager
         self.todayProvider = todayProvider
@@ -45,7 +50,7 @@ final class TodoMarkdownStore {
         formatter.dateFormat = "yyyy-MM-dd"
         self.formatter = formatter
 
-        self.fileURL = Self.storageFileURL(fileManager: fileManager)
+        self.fileURL = fileURL ?? Self.storageFileURL(fileManager: fileManager)
     }
 
     func loadToday() -> TodoDaySnapshot {
@@ -84,9 +89,13 @@ final class TodoMarkdownStore {
     }
 
     @discardableResult
-    func syncToday(with items: [TodoItem], sectionExists: Bool) -> Bool {
+    func syncToday(with items: [TodoItem], sectionExists: Bool, dateKey: String? = nil) -> Bool {
         let persistedItems = items
-            .map { TodoItem($0.content.trimmingCharacters(in: .whitespacesAndNewlines), $0.over) }
+            .map { item in
+                var item = item
+                item.content = item.content.trimmingCharacters(in: .whitespacesAndNewlines)
+                return item
+            }
             .filter { !$0.content.isEmpty }
 
         guard sectionExists || !persistedItems.isEmpty else {
@@ -94,14 +103,14 @@ final class TodoMarkdownStore {
         }
 
         let document = readDocument()
-        let dateKey = currentDateKey()
+        let dateKey = dateKey ?? currentDateKey()
         let renderedSection = renderSection(for: dateKey, items: persistedItems)
 
         let updatedDocument: String
         if let existingRange = sectionRange(for: dateKey, in: document) {
             updatedDocument = nsString(for: document).replacingCharacters(
                 in: existingRange,
-                with: renderedSection
+                with: renderedSection + "\n\n"
             )
         } else {
             let trimmedDocument = document.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -109,7 +118,10 @@ final class TodoMarkdownStore {
                 trimmedDocument.isEmpty ? renderedSection : "\(trimmedDocument)\n\n\(renderedSection)"
         }
 
-        writeDocument(updatedDocument + "\n")
+        let normalizedDocument = updatedDocument.trimmingCharacters(in: .newlines) + "\n"
+        if normalizedDocument != document {
+            writeDocument(normalizedDocument)
+        }
         return true
     }
 
@@ -147,17 +159,39 @@ final class TodoMarkdownStore {
         return matches.compactMap { match in
             guard match.numberOfRanges == 3 else { return nil }
             let completionMark = nsSection.substring(with: match.range(at: 1))
-            let content = nsSection.substring(with: match.range(at: 2))
+            var content = nsSection.substring(with: match.range(at: 2))
                 .trimmingCharacters(in: .whitespacesAndNewlines)
 
+            var elapsedTime: TimeInterval = 0
+            let nsContent = content as NSString
+            if let match = durationExpression.firstMatch(
+                in: content,
+                range: NSRange(location: 0, length: nsContent.length)
+            ) {
+                let multipliers: [TimeInterval] = [3600, 60, 60, 1, 1]
+                for (index, multiplier) in multipliers.enumerated() {
+                    let range = match.range(at: index + 1)
+                    guard range.location != NSNotFound else { continue }
+                    elapsedTime += (TimeInterval(nsContent.substring(with: range)) ?? 0) * multiplier
+                }
+                if elapsedTime.isFinite {
+                    content = nsContent.substring(to: match.range.location)
+                } else {
+                    elapsedTime = 0
+                }
+            }
             guard !content.isEmpty else { return nil }
-            return TodoItem(content, completionMark == "x")
+            return TodoItem(content, completionMark == "x", elapsedTime: elapsedTime)
         }
     }
 
     private func renderSection(for dateKey: String, items: [TodoItem]) -> String {
         let itemLines = items.map { item in
-            "- [\(item.over ? "x" : " ")] \(item.content)"
+            let elapsedTime = item.totalElapsedTime(at: todayProvider())
+            let suffix = elapsedTime > 0 || item.isRunning
+                ? " [耗时: \(TodoItem.formatDuration(elapsedTime))]"
+                : ""
+            return "- [\(item.over ? "x" : " ")] \(item.content)\(suffix)"
         }
 
         guard !itemLines.isEmpty else {

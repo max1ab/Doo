@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 import SwiftUI
 
 struct TodoView: View {
@@ -11,6 +12,7 @@ struct TodoView: View {
     @State private var hasLoadedToday = false
     @State private var todaySectionExists = false
     @State private var loadedDateKey = ""
+    @State private var pendingSave: DispatchWorkItem?
 
     var body: some View {
         VStack {
@@ -41,12 +43,18 @@ struct TodoView: View {
         .onAppear {
             loadCurrentDayItemsIfNeeded(forceReload: true)
         }
-        .onChange(of: todoItems) { _, newItems in
+        .onChange(of: todoItems) { oldItems, newItems in
             guard hasLoadedToday else { return }
-            todaySectionExists = todoStore.syncToday(
-                with: newItems,
-                sectionExists: todaySectionExists
-            )
+            let onlyTextChanged = oldItems.count == newItems.count
+                && zip(oldItems, newItems).allSatisfy { old, new in
+                    old.id == new.id && old.over == new.over
+                        && old.startedAt == new.startedAt && old.elapsedTime == new.elapsedTime
+                }
+            if onlyTextChanged {
+                scheduleSaveAfterTyping()
+            } else {
+                saveCurrentItems()
+            }
         }
         .onChange(of: window) { _, newWindow in
             guard let newWindow else { return }
@@ -58,7 +66,18 @@ struct TodoView: View {
             loadCurrentDayItemsIfNeeded(carryIncompleteItems: true)
         }
         .onReceive(NotificationCenter.default.publisher(for: .NSCalendarDayChanged)) { _ in
-            loadCurrentDayItemsIfNeeded(forceReload: true, carryIncompleteItems: true)
+            loadCurrentDayItemsIfNeeded(carryIncompleteItems: true)
+        }
+        .onReceive(Timer.publish(every: 60, on: .main, in: .common).autoconnect()) { _ in
+            loadCurrentDayItemsIfNeeded(carryIncompleteItems: true)
+            guard todoItems.contains(where: \.isRunning) else { return }
+            saveCurrentItems()
+        }
+        .onReceive(NotificationCenter.default.publisher(for: NSApplication.willTerminateNotification)) { _ in
+            for index in todoItems.indices {
+                todoItems[index].pauseExecution()
+            }
+            saveCurrentItems()
         }
         .onKeyPress(.upArrow) {
             moveFocusUp()
@@ -72,6 +91,24 @@ struct TodoView: View {
             moveFocusDown()
             return .handled
         }
+    }
+
+    private func scheduleSaveAfterTyping() {
+        pendingSave?.cancel()
+        let work = DispatchWorkItem { saveCurrentItems() }
+        pendingSave = work
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5, execute: work)
+    }
+
+    private func saveCurrentItems() {
+        pendingSave?.cancel()
+        pendingSave = nil
+        guard hasLoadedToday else { return }
+        todaySectionExists = todoStore.syncToday(
+            with: todoItems,
+            sectionExists: todaySectionExists,
+            dateKey: loadedDateKey
+        )
     }
 
     private func move(from source: IndexSet, to destination: Int) {
@@ -102,6 +139,12 @@ struct TodoView: View {
             carryIncompleteItems && hasLoadedToday && loadedDateKey != currentDateKey
         guard forceReload || !hasLoadedToday || loadedDateKey != currentDateKey else { return }
 
+        if hasLoadedToday {
+            for index in todoItems.indices {
+                todoItems[index].pauseExecutionIfDayChanged()
+            }
+            saveCurrentItems()
+        }
         let snapshot = todoStore.loadToday()
         let canCarryIntoToday = snapshot.items.isEmpty && !snapshot.sectionExists
         let memoryCarriedItems = shouldCarryIncompleteItems ? todoItems.filter { !$0.over } : []
